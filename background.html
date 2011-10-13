@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<script>
+    chrome.extension.onRequest.addListener(function (request, sender, callback) {
+        if (request.action == 'getKarma' && request.user != '') {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(data) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        callback(xhr.responseText);
+                    } else {
+                        //
+                        // if a lot requests server try to drop them, then rerequest
+                        // it works but a lot of requests on page
+                        //
+                        if (xhr.status == 503) {
+                            xhr.open('GET', url, true);
+                            xhr.send();
+                        } else {
+                            callback(null);
+                        }
+                    }
+                }
+            }
+            var url = 'http://habrahabr.ru/api/profile/' + request.user + '/';
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+    });
+
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+        if (tab.url.search(/habrahabr\.ru/i) > -1) {
+            if (changeInfo.status == 'loading') {
+                chrome.pageAction.show(tabId);
+                if (localStorage['editor'] == 'true') {
+                    chrome.tabs.executeScript(tabId, {file: 'editor.js'});
+                }
+                if (localStorage['tooltip'] == 'true') {
+                    chrome.tabs.executeScript(tabId, {file: 'karma.js'});
+                }
+                if (localStorage['comments'] == 'true') {
+                    chrome.tabs.executeScript(tabId, {file: 'tree.js'});
+                }
+            }
+        }
+    });
+
+    if (!localStorage["editor"]) {
+        localStorage["editor"] = true;
+        localStorage["comments"] = true;
+        localStorage["tooltip"] = true;
+    }
+</script>
+</body>
+</html>

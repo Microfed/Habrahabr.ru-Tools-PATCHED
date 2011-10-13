@@ -1,0 +1,123 @@
+ul.habra-chrome-toolbar {
+	height:20px;
+	background:#eaecea;
+	margin:0px;
+	padding:0 1px !important;
+	width:310px;
+	border-top:1px solid #c8d2df;
+	border-left:1px solid #c8d2df;
+	border-right:1px solid #c8d2df;
+	-webkit-border-top-left-radius:3px;
+	-webkit-border-top-right-radius:3px;
+	overflow:hidden;
+}
+
+ul.habra-chrome-toolbar li {
+	height:20px;
+	width:20px;
+	text-align:center;
+	overflow:hidden;
+	float:left;
+	margin:0px;
+	list-style:none;
+}
+
+ul.habra-chrome-toolbar li a {
+	height:20px;
+	width:20px;
+	text-align:center;
+	overflow:hidden;
+	float:left;
+	margin:0px;
+	font:normal 12px Tahoma, Arial, Verdana, sans-serif;
+	text-decoration:none;
+	color:#48718e;
+	line-height:20px;
+}
+
+ul.habra-chrome-toolbar li a:hover {
+	background:#f7f7f7;
+}
+
+ul.habra-chrome-toolbar li a:active {
+	background:#FFF;
+}
+
+#js-field-comment {
+	margin:0px;
+	outline:none;
+	-webkit-border-bottom-left-radius:3px;
+	-webkit-border-top-right-radius:3px;
+	-webkit-border-bottom-right-radius:3px;
+}
+
+#js-field-comment:focus {
+	border:1px solid #9aa1ab;
+}
+
+.tree-off, .tree-on {
+    display: inline-block;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-image: url(chrome-extension://ekkngamdmcljjgmhlihjiiapfcdladgh/icons.png);
+/*    background-image: url(chrome-extension://ekkngamdmcljjgmhlihjiiapfcdladgh/icons.png);*/
+}
+
+.tree-off {
+    background-position: -32px -16px;
+}
+
+.tree-on {
+    background-position:  -48px -16px;
+}
+
+.menu-off {
+    background: #FFFEB8;
+}
+
+.highlight {
+    background: #F0FAF0;
+}
+
+#sauprasdasd {
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 300ms;
+    -webkit-transition-timing-function: linear;
+    -webkit-transition-delay: initial;
+}
+
+#habratooltip {
+    display: none;
+    position: absolute;
+	padding: 0.1em;
+    font-size: small;
+	z-index:9999;
+    background-color: white;
+	-webkit-box-shadow: 0 0 5px #aaa;
+    -webkit-border-radius: 4px;
+    top: 0;
+    left: 0;
+}
+#htkarma {
+    color: #6C6;
+    padding: 0.1em;
+}
+#htrating {
+    color: #C6C;
+    padding: 0.1em;
+}
+
+.goog-tooltip {
+    background: infobackground;
+    color: infotext;
+    /*      border: 1px solid infotext; */
+    padding: 1px;
+    font: menu;
+
+    padding: 0.1em;
+    font-size: small;
+    background-color: white;
+    -webkit-box-shadow: 0 0 5px #aaa;
+    -webkit-border-radius: 4px;
+}

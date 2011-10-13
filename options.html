@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="ru-RU">
+    <head>
+        <title>Настройки habrahabr.ru tools</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+
+            function save_options() {
+                localStorage["editor"] = document.getElementById("editor").checked;
+                localStorage["comments"] = document.getElementById("comments").checked;
+                localStorage["tooltip"] = document.getElementById("tooltip").checked;
+
+                var status = document.getElementById("status");
+                status.innerHTML = "Сохранено.";
+                setTimeout(function() {
+                    status.innerHTML = "";
+                }, 750);
+            }
+
+            function restore_options() {
+                document.getElementById("editor").checked = (localStorage["editor"] === 'true');
+                document.getElementById("comments").checked = (localStorage["comments"] === 'true');
+                document.getElementById("tooltip").checked = (localStorage["tooltip"] === 'true');
+            }
+        </script>
+        <style type="text/css">
+            * {
+                font-family: sans-serif;
+            }
+            h1 {
+                font-size: 12pt;
+            }
+            label, button, span {
+                font-size: 10pt;
+            }
+            dl, dt {
+                width: 200px;
+                padding: 0em;
+            }
+            body {
+/*                background: white url(chrome-extension://ekkngamdmcljjgmhlihjiiapfcdladgh/icon.png) right top scroll no-repeat;*/
+/*                background: white url(chrome-extension://bcpbalcckaeafbmanjmiofjddefdcpik/icon.png) right top scroll no-repeat;*/
+            }
+        </style>
+    </head>
+    <body onload="restore_options()">
+        <h1>Настройки</h1>
+        <dl>
+            <dt><label><input id="editor" type="checkbox" />Редактор</label></dt>
+            <dt><label><input id="comments" type="checkbox"/>Сворачивание комментариев</label></dt>
+            <dt><label><input id="tooltip" type="checkbox" />Тултип с кармой над ником</label></dt>
+        </dl>
+        <button onclick="save_options()">Сохранить</button>
+        <span id="status"></span>
+    </body>
+</html>
