@@ -1,6 +1,6 @@
 if (!document.getElementById('all-off')) {
 //    $(document).ready(function() {
-    var ratingSelector = "span.score";
+    var ratingSelector = "div.info. div.voting div.mark span.score";
 
     $(function() {
         $("div.comment").prepend("<div class='tree-button tree-on'></div>");
