@@ -1,3 +1,6 @@
+function getUserInfo(data, type) {
+    return parseInt($(data).find(type).text()).toString() === 'NaN' ? '' : $(data).find(type).text();
+}
 if (!document.getElementById('habratooltip')) {
 ////$(document).ready(function(){
     //
@@ -6,14 +9,16 @@ if (!document.getElementById('habratooltip')) {
     var nickName = $('div.top a.username.dark');
     if (nickName.text() != '') {
         chrome.extension.sendRequest(
-        {
-            'action': 'getKarma',
-            'user': nickName.text()
+            {
+                'action': 'getKarma',
+                'user': nickName.text()
             },
-        function(data){
-            nickName.after('&nbsp;<span style="color: #C6C">' + $(data).find('rating').text() + '<span>');
-            nickName.after('&nbsp;<span style="color: #6C6">' + $(data).find('karma').text() + '<span>');
-        }
+            function(data) {
+                var rating = getUserInfo(data, 'rating');
+                var karma = getUserInfo(data, 'karma');
+                nickName.after('&nbsp;<span style="color: #C6C">' + rating + '<span>');
+                nickName.after('&nbsp;<span style="color: #6C6">' + karma + '<span>');
+            }
         );
     }
 
@@ -23,11 +28,11 @@ if (!document.getElementById('habratooltip')) {
     //  server response 503 if more then 3-5 requests in one time
     //
 
-    $(window).scroll(function(){
+    $(window).scroll(function() {
         if ($('div.author a').size() == $('.karmaloaded').size()) {
             $(window).unbind('scroll');
         }
-        $('div.author a:not(.karmaloaded)').each(function(){
+        $('div.author a:not(.karmaloaded)').each(function() {
 //            console.log($(window).scrollTop(), $(window).height(), $(window).scrollTop() + $(window).height(), $(this).offset().top, $(this).height());
 //            console.log($(window).scrollTop() > ($(this).offset().top + $(this).height()));
             if ($(window).scrollTop() + $(window).height() > $(this).offset().top) {
@@ -35,9 +40,11 @@ if (!document.getElementById('habratooltip')) {
                 nickName.addClass('karmaloaded');
                 chrome.extension.sendRequest(
                     {'action': 'getKarma', 'user': nickName.text()},
-                    function(data){
-                        nickName.after('&nbsp;<span style="color: #C6C; font-weight: 700;">' + parseInt($(data).find('rating').text()) + '<span>');
-                        nickName.after('&nbsp;&nbsp;<span style="color: #6C6; font-weight: 700;">' + parseInt($(data).find('karma').text()) + '<span>');
+                    function(data) {
+                        var rating = getUserInfo(data, 'rating');
+                        var karma = getUserInfo(data, 'karma');
+                        nickName.after('&nbsp;<span style="color: #C6C; font-weight: 700;">' + rating + '<span>');
+                        nickName.after('&nbsp;&nbsp;<span style="color: #6C6; font-weight: 700;">' + karma + '<span>');
                     });
             }
         });
@@ -53,20 +60,20 @@ if (!document.getElementById('habratooltip')) {
     $('a.username, a.user_name, dt.who a').hover(function(ev) {
         var el = $(this);
         chrome.extension.sendRequest(
-        {
-            'action': 'getKarma',
-            'user': el.text()
+            {
+                'action': 'getKarma',
+                'user': el.text()
             },
-        function(data){
-            $('#htkarma').html($(data).find('karma').text());
-            $('#htrating').html($(data).find('rating').text());
-            $('#habratooltip').css({
-                'left': ev.pageX ,
-                'top': ev.pageY - 30
-            }).show();
-        }
+            function(data) {
+                $('#htkarma').html(getUserInfo(data, 'karma'));
+                $('#htrating').html(getUserInfo(data, 'rating'));
+                $('#habratooltip').css({
+                    'left': ev.pageX ,
+                    'top': ev.pageY - 30
+                }).show();
+            }
         );
-    }, function(){
+    }, function() {
         $('#habratooltip').hide();
     });
 
